@@ -10,4 +10,4 @@ class Artist
     @name = options['name']
   end
 
-  
+end
