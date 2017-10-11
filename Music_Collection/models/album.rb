@@ -13,4 +13,19 @@ attr_reader :id, :name, :genre, :artist_id
     @artist_id = options['artist_id'].to_i
   end
 
+  def save()
+    sql = "
+    INSERT INTO albums (name) VALUES ($1) RETURNING *
+    "
+    values = [@name]
+    @id = SqlRunner.run(sql, values)[0]['id'].to_i()
+  end
+
+  def self.all
+    sql = "SELECT * FROM albums"
+    values = []
+    albums = SqlRunner.run(sql, values)
+    albums_as_objects = albums.map { |album| Album.new(album)}
+    return albums_as_objects
+  end
 end
