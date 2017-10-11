@@ -28,4 +28,10 @@ attr_reader :id, :name, :genre, :artist_id
     albums_as_objects = albums.map { |album| Album.new(album)}
     return albums_as_objects
   end
+
+  def self.delete_all
+    sql = "DELETE FROM albums"
+    values = []
+    customers = SqlRunner.run(sql, values)
+  end
 end

@@ -25,4 +25,10 @@ class Artist
     artist_as_object = artists.map { |artist| Artist.new(artist)}
     return artist_as_object
   end
+
+  def self.delete_all
+    sql = "DELETE FROM artists"
+    values = []
+    customers = SqlRunner.run(sql, values)
+  end
 end
