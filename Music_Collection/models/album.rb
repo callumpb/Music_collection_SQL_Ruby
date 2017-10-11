@@ -4,7 +4,7 @@ require_relative('../db/sql_runner.rb')
 
 class Album
 
-attr_reader :id, :name, :genre, :artist_id
+attr_accessor :id, :name, :genre, :artist_id
 
   def initialize(options)
     @id = options['id'].to_i if options['id']
@@ -33,5 +33,15 @@ attr_reader :id, :name, :genre, :artist_id
     sql = "DELETE FROM albums"
     values = []
     customers = SqlRunner.run(sql, values)
+  end
+
+  def artists
+    sql = "SELECT * FROM artists WHERE id = $1"
+    values = [@artist_id]
+    results = SqlRunner.run(sql, values)
+    
+    artist_data = results[0]
+    artist = Artist.new(artist_data)
+    return artist
   end
 end
